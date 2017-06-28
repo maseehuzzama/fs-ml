@@ -750,11 +750,11 @@ class AdminController extends Controller
         App::setLocale($locale);
         $adminCities = DB::table('admin_city')->where('admin_id',Auth::user()->id)->pluck('city');
         if(Auth::user()->hasRole('superadmin')){
-            $customers = User::paginate(1);
+            $customers = User::paginate(50);
         }
         else{
             //$customers = User::whereIn('city',$adminCities)->get();
-            $customers = User::paginate(1);
+            $customers = User::paginate(50);
 
         }
 

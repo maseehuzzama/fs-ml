@@ -97,10 +97,10 @@
                     <form action="{{route('client.reports.orders-by-date',array(App::getLocale()))}}" method="post">
                         {{csrf_field()}}
                         <div class="col-xs-12 col-md-4 form-group">
-                            <input type="text" class="form-control" value="{{@$from?$from:date('Y-m-d')}}" name="from">
+                            <input type="date" class="form-control" value="{{@$from?$from:date('Y-m-d')}}" name="from">
                         </div>
                         <div class="col-xs-12 col-md-4 form-group">
-                            <input type="text" class="form-control"  value="{{@$to?$to:date('Y-m-d')}}" name="to">
+                            <input type="date" class="form-control"  value="{{@$to?$to:date('Y-m-d')}}" name="to">
                         </div>
 
                         <div class="col-xs-12 col-md-4 form-group">
