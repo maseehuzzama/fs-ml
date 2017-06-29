@@ -325,6 +325,7 @@ Route::group(['middleware'=>'auth','prefix' => '{locale}/client-area'], function
         'as'=>'client.reports.orders-by-status',
     ]);
 });
+
 /*Agent-Area-Routes*/
 Route::get('/agent/login','Auth\Agent\LoginController@showLoginForm')->name('agent.login');
 Route::post('/agent/login','Auth\Agent\LoginController@login')->name('agent.login.submit');
@@ -402,6 +403,10 @@ Route::get('/admin', function () {
         return redirect('/admin/en');
 })->name('admin')->middleware('auth:admin');
 
+Route::get('admin/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('admin/password/email', 'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('admin/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+Route::post('admin/password/reset', 'Auth\Admin\ResetPasswordController@reset');
 
 Route::group(['middleware' => 'roles','roles'=>['superadmin'],'prefix' => '/admin'], function () {
 

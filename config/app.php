@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'ar',
+    'locale' => 'en',
 
 
     /*
