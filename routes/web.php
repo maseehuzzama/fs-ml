@@ -550,6 +550,16 @@ Route::group(['middleware' => 'roles','roles'=>['superadmin'],'prefix' => '/admi
         'as'=>'admin.theme.new-slide',
     ]);
 
+    Route::get('/theme/edit-slide/{id}/{locale}',[
+        'uses'=>'Admin\ThemeController@editSlide',
+        'as'=>'admin.theme.edit-slide',
+    ]);
+
+    Route::post('/theme/edit-slide/{id}/{locale}',[
+        'uses'=>'Admin\ThemeController@updateSlide',
+        'as'=>'admin.theme.edit-slide',
+    ]);
+
     Route::get('/theme/delete-slide/{id}/{locale}',[
         'uses'=>'Admin\ThemeController@deleteSlide',
         'as'=>'admin.theme.delete-slide',

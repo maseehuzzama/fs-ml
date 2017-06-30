@@ -33,6 +33,7 @@
                                         <td>{{$item->link_name}}&nbsp;</td>
                                         <td>{{$item->image}}&nbsp;</td>
                                         <td class="actions">
+                                            <a href="{{route('admin.theme.edit-slide',[$item->id,App::getLocale()])}}"  class="label label-success">Edit</a>
                                             <a href="{{route('admin.theme.delete-slide',[$item->id,App::getLocale()])}}" onclick="return confirm('Sure?')" class="label label-danger">Delete</a>
                                         </td>
                                     </tr>

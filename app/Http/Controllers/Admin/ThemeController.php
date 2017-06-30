@@ -50,7 +50,7 @@ class ThemeController extends Controller
 
         if($request->file('image')){
             $file = $request->file('image');
-            $filename = str_random(6).$file->getClientOriginalName();
+            $filename = 'slide_'.$request['number'].$file->getClientOriginalExtension();
             $destinationPath = 'img/slider';
             if($file->move($destinationPath, $filename)){
                 $slide->image = $filename;
@@ -63,6 +63,55 @@ class ThemeController extends Controller
 
         return redirect()->back();
     }
+
+    public  function editSlide($id,$locale){
+        App::setLocale($locale);
+        $slide = Slider::findOrFail($id);
+        return view('admin.theme.edit-slider', compact('slide'));
+
+    }
+
+    public function updateSlide(Request $request,$id, $locale){
+        App::setLocale($locale);
+        $this->validate($request,[
+            'number'=>'required',
+            'title'=>'required|max:255',
+            'tagline'=>'required|max:255',
+            'link_name'=>'required|max:255',
+            'link'=>'required|max:255',
+            'keywords'=>'required|max:255',
+            'image'=>'image|mimes:jpeg,png,jpg,gif|max:500',
+        ]);
+
+        $slide = Slider::findOrFail($id);
+        $slide->slide_number = $request['number'];
+        $slide->title = $request['title'];
+        $slide->title_ar = $request['title_ar'];
+        $slide->tagline = $request['tagline'];
+        $slide->tagline_ar = $request['tagline_ar'];
+        $slide->link_name = $request['link_name'];
+        $slide->link_name_ar = $request['link_name_ar'];
+        $slide->link = $request['link'];
+        $slide->keywords = $request['keywords'];
+
+        if($request->file('image')){
+            $file = $request->file('image');
+            $filename = 'slide_'.$request['number'].'.'.$file->getClientOriginalExtension();
+            $destinationPath = 'img/slider';
+            if($file->move($destinationPath, $filename)){
+                $slide->image = $filename;
+            }
+            else{
+                return abort(401,'Image Not Uploaded');
+            }
+        }
+
+        if($slide->update()){
+            return redirect()->back()->with('success','Slider Edited');
+        }
+
+    }
+
     public function deleteSlide($id,$locale){
         App::setLocale($locale);
         $slide = Slider::find($id);
