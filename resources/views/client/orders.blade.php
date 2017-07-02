@@ -53,6 +53,7 @@
 											<thead>
 											<tr>
 												<th>#{{trans('general.order-number')}}.</th>
+												<th>#{{trans('general.shipping-number')}}.</th>
 												<th>{{trans('general.details')}}</th>
 												<th>{{trans('general.date')}}</th>
 												<th>{{trans('general.r_name')}}</th>
@@ -64,6 +65,7 @@
 											@foreach($pendingOrders as $order)
 												<tr>
 													<td>{{$order->ref_number}}</td>
+													<td>{{@$order->shipping_number}}</td>
 													<td>{{$order->contains}}</td>
 													<td>{{$order->created_at->format('d-m-Y')}}</td>
 													<td>{{$order->r_name}}</td>

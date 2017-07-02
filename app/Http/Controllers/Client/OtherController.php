@@ -15,7 +15,7 @@ use App\Store;
 use App\PhotoOrder;
 use App\Neighbor;
 use Auth;
-
+use Illuminate\Support\Facades\DB;
 class OtherController extends Controller
 {
     public function __construct()

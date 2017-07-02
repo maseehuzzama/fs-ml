@@ -50,7 +50,7 @@ class ThemeController extends Controller
 
         if($request->file('image')){
             $file = $request->file('image');
-            $filename = 'slide_'.$request['number'].$file->getClientOriginalExtension();
+            $filename = 'slide_'.$request['number'].'_'.str_random(4).'.'.$file->getClientOriginalExtension();
             $destinationPath = 'img/slider';
             if($file->move($destinationPath, $filename)){
                 $slide->image = $filename;
@@ -96,7 +96,7 @@ class ThemeController extends Controller
 
         if($request->file('image')){
             $file = $request->file('image');
-            $filename = 'slide_'.$request['number'].'.'.$file->getClientOriginalExtension();
+            $filename = 'slide_'.$request['number'].'_'.str_random(4).'.'.$file->getClientOriginalExtension();
             $destinationPath = 'img/slider';
             if($file->move($destinationPath, $filename)){
                 $slide->image = $filename;

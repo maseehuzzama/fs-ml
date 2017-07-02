@@ -729,6 +729,11 @@ Route::group(['middleware' => 'roles','roles'=>['superadmin','admin','subadmin']
         'as'=>'admin.edit-order',
     ]);
 
+    Route::post('/enter-shipping-number/{id}/{locale}', [
+        'uses'=>'Admin\AdminController@enterShippingNumber',
+        'as'=>'admin.enter-shipping-number',
+    ]);
+
 
     Route::get('/select-delivery-type/{ref}/{locale}', [
         'uses'=>'Client\ClientController@getSelectDelivery',

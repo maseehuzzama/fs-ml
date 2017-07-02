@@ -85,7 +85,7 @@
 	<!-- services end -->
 
 	<!-- featuer-section start -->
-	<section class="feature-section section-padding">
+	<section class="feature-section section-padding hidden">
 		<div class="container">
 			<div class="row">
 				<div class="btn-group pull-left">
@@ -98,7 +98,7 @@
 	<!-- featuer-section end -->
 
 	<!-- why-us-setion start -->
-	<section class="why-us-setion section-padding">
+	<section class="why-us-setion section-padding" style="background: #f1f1f1">
 		<div class="container">
 			<div class="row text-center">
 				<div class="col-xs-12">
@@ -229,7 +229,7 @@
 													<h3>{{trans('home.outside-riyadh')}}</h3>
 												</div>
 												<div class="panel-body text-center">
-													<p><strong>{{$do->price}}{{trans('home.one-out')}}</strong></p>
+													<p><strong>{{$do->price}} {{trans('home.one-out')}}</strong></p>
 												</div>
 												<ul class="list-group text-center">
 													<li class="list-group-item"><strong>{{trans('home.time')}}</strong><br>
@@ -256,7 +256,7 @@
 												<ul class="list-group text-center">
 													@foreach($inPackages as $package)
 													<li class="list-group-item"><strong>{{$package->quantity}} {{trans('general.orders')}}</strong><br>
-														{{$package->rates}}{{trans('general.sar')}}/{{trans('general.order')}}
+														{{$package->rates}} {{trans('general.sar')}}/{{trans('general.order')}}
 													</li>
 													@endforeach
 												</ul>

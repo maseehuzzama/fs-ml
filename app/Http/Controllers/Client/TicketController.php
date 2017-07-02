@@ -10,7 +10,7 @@ use Auth;
 use App\Order;
 use App\Ticket;
 use App\TicketCategory;
-
+use Illuminate\Support\Facades\DB;
 class TicketController extends Controller
 {
     public function __construct()

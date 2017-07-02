@@ -89,7 +89,7 @@
                         <form method="post" action="{{route('admin.transfer-client-amount',array($customer->id,$customer->email,App::getLocale()))}}" enctype="multipart/form-data">
                             {{csrf_field()}}
 
-                            <input type="hidden" name="current_amount" id="current_amount" value="{{$customer->accounts->wallet_amount}}">
+                            <input type="hidden" name="current_amount" id="current_amount" value="{{@$customer->accounts->wallet_amount}}">
                             <div class="form-group">
                                 <label for="amount_type">Amount  Type[required]</label>
                                 <select id="amount_type" name="amount_type" class="form-control" required>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount">Amount [required]</label>
-                                <input type="text" id="amount" name="amount"  class="form-control" required="required" readonly="true" value="{{$customer->accounts->wallet_amount}}">
+                                <input type="text" id="amount" name="amount"  class="form-control" required="required" readonly="true" value="{{@$customer->accounts->wallet_amount}}">
                             </div>
                             <div class="form-group">
                                 <label for="reference">Reference [required]</label>

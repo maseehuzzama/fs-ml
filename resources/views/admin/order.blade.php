@@ -7,6 +7,9 @@
                     <small>
                         <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary" style="margin: -10px 0 0 25px;">{{trans('general.change-status')}}</a>
                         @if($order->is_delivery == 1)
+                            @if($order->s_city != 'Riyadh' or $order->r_city != 'Riyadh')
+                                <a href="#" class="btn btn-sm btn-default" data-toggle="modal" data-target="#shippingNumberModal" style="margin: -10px 0 0 25px;">Enter Shipping Bill Number</a>
+                            @endif
                             <a href="{{route('admin.edit-order',array($order->id,App::getLocale()))}}" class="btn btn-sm btn-success" style="margin: -10px 0 0 25px;">{{trans('general.edit')}}</a>
                         @else
                             <a href="{{route('admin.edit-other-order',array($order->id,App::getLocale()))}}" class="btn btn-sm btn-success" style="margin: -10px 0 0 25px;">{{trans('general.edit')}}</a>
@@ -14,6 +17,7 @@
                         <a href="#" class="btn btn-sm btn-danger" style="margin: -10px 0 0 25px;" onclick="goBack()">{{trans('general.back')}}</a>
                     </small>
                 </h3>
+                <h4>Shipping Bill Number : <small><b>{{$order->shipping_number}}</b></small></h4>
             </div>
             @if($order->is_delivery == true)
             <div class="order-details">
@@ -69,6 +73,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
+                                    <th>{{trans('general.dlv_type')}}</th>
                                     <th>{{trans('general.payment-mode')}}</th>
                                     <th>{{trans('general.dlv-chrgs')}}</th>
                                     <th>{{trans('general.packing-charges')}}</th>
@@ -79,6 +84,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
+                                    <td>{{($order->dlv_type =='fed')?'Fast Express':'Fast Delivery'}}</td>
                                     <td>{{@$order->payment_mode->title}}</td>
                                     <td>{{$order->dlv_chrgs}}</td>
                                     <td>{{($order->is_packing == 1)?$order->packing_amount:0.00}}</td>
@@ -208,6 +214,35 @@
                     </div>
                 </div>
             </div>
+
+            <div id="shippingNumberModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Enter Shipping Number</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{route('admin.enter-shipping-number',array($order->id,App::getLocale()))}}">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label for="number">Shipping Number</label>
+                                    <input id="shipping_number" name="shipping_number" type="text" class="form-control" placeholder="Shipping Number">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="{{trans('general.submit')}}" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <!-- /.container-fluid -->

@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use App\Price;
 
+
 class AdminController extends Controller
 {
     public function __construct()
@@ -93,6 +94,12 @@ class AdminController extends Controller
             'status' => 'required'
         ));
         $order = Order::find($id);
+        if($order->s_city != 'Riydh' or $order->r_city != 'Riydh'){
+            $ref =$order->shipping_number;
+        }
+        else{
+            $ref =$order->ref_number;
+        }
         if($order->satus == 'pending'){
             return abort(401,'Order still in Pending/Not Picked UP');
         }
@@ -101,8 +108,9 @@ class AdminController extends Controller
 
                 $client = new Client(['base_uri' => 'http://sgw01.cm.nl/']);
 
+
                 $response = $client->request('GET',
-                    '/gateway.ashx?producttoken=3a0eb501-0151-420a-879d-cf139e82e141&body=Order contains '.$order->contains.' ready to reach you soon.&to=00966'.$order->r_phone.'&from=FastStar&reference='.$order->id);
+                    '/gateway.ashx?producttoken=3a0eb501-0151-420a-879d-cf139e82e141&body=Order contains '.$order->contains.' ready to reach you soon.&to=00966'.$order->r_phone.'&from=FastStar&reference='.$ref);
                 if($response){
                     $order->status = $request['status'];
                 }
@@ -341,6 +349,7 @@ class AdminController extends Controller
         }
         return abort(403,'No Match');
     }
+
 
     public function getSelectDelivery($locale,$ref){
         App::setLocale($locale);
@@ -590,8 +599,17 @@ class AdminController extends Controller
         }
     }
 
+    public function enterShippingNumber(Request $request,$id,$locale)
+    {
+        App::setLocale($locale);
+        $order = Order::findOrFail($id);
+        $order->shipping_number = $request['shipping_number'];
+        $order->save();
+        return redirect()->back()->with('success','Shipping Number Updated');
+    }
 
-/*Other-Orders*/
+
+    /*Other-Orders*/
     public function pendingOtherOrders($locale)
     {
         App::setLocale($locale);

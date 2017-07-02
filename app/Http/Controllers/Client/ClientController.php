@@ -196,7 +196,7 @@ class ClientController extends Controller
                     $new_rec->neighbor_id = $request['receiver_neighbour'];
 
                 }
-                $new_rec->save();
+                return $new_rec;
             }
         }
         else{
@@ -265,6 +265,7 @@ class ClientController extends Controller
 
 
         if($order->save()){
+
             return redirect()->route('client.select-delivery-type',array($locale,$ref_number));
         }
         return abort(403,'Try Again!');

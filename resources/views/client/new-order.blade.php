@@ -5,20 +5,17 @@
 	<title>{{trans('menu.new-order')}} | {{trans('general.tagline')}}</title>
 	@endsection
 	@section('custom-css')
-			<!--[if IE]
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<![endif]-->
 	@endsection
 	@section('custom-js')
-			<!--[if IE]
+
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$( function() {
-			$( "#pick_date" ).datepicker();
+			$( "#pick_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 		} );
 	</script>
-<![endif]-->
 	<script type="text/javascript">
 		$(function () {
 			$("#is_packing").change(function () {
@@ -144,7 +141,7 @@
 							<div class="col-sm-12">
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="pick_date">{{trans('general.pick-date')}}</label>
-									<input id="pick_date" name="pick_date" type="date"  class="form-control" min="{{Carbon\Carbon::today()->format('Y-m-d')}}" placeholder="">
+									<input id="pick_date" name="pick_date" type="text"  class="form-control" min="{{Carbon\Carbon::today()->format('Y-m-d')}}" placeholder="">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="pick_date">{{trans('general.pick-time')}}</label>
@@ -224,7 +221,8 @@
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="r_phone">{{trans('form.mobile')}}</label>
 									<div class="form-inline">
-										<select class="form-control"><option value="00966">+966</option></select><input id="r_phone" name="receiver_phone" type="text" min="9" max="9" class="form-control" value="{{old('receiver_phone')}}" placeholder="591234567" required>
+										<select class="form-control"><option value="00966">+966</option></select>
+										<input id="r_phone" name="receiver_phone" type="text" min="9" max="9" class="form-control" value="{{old('receiver_phone')}}" placeholder="591234567" required>
 									</div>
 								</div>
 							</div>

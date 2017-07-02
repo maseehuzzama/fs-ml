@@ -212,4 +212,8 @@ return [
 	'storage-prices'=>'Storage Prices',
 	'before'=>'Before',
 
+
+	'shipping-number'=>'Shipping Number',
+	'dlv_type'=>'Delivery Type',
+
 ];

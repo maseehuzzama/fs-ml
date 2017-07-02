@@ -37,11 +37,12 @@
                                 <li><b>{{trans('general.city')}}: </b><span>{{@$order->s_city}}</span></li>
                                 <li><b>{{trans('general.pick-date')}}: </b><span>{{@$order->pick_date}}</span></li>
                                 <li><b>{{trans('general.pick-time')}}: </b><span>{{@$order->pick_time}}</span></li>
+                                <li><b>{{trans('general.dlv_type')}}: </b><span>{{($order->dlv_type =='fed')?'Fast Express':'Fast Delivery'}}</span></li>
                                 <li><b>{{trans('general.cfs')}}: </b><span>{!! ($order->payment_id == 2)?'Yes, Amount <b>SAR'.$order->total_freight.'</b>':'No'!!}</span></li>
                             </ul>
                         </div>
 
-                        <div class="col-sm-12 col-md-6 {{(Auth::user()->type == 'delivery')?'':'hidden'}}">
+                        <div class="col-sm-12 col-md-6 {{(Auth::user()->type == 'delivery' or $order->dlv_type == 'fed')?'':'hidden'}}">
                             <h4>{{trans('general.details')}}</h4>
                             <ul class="list-unstyled">
                                 <li><b>{{trans('general.shipment-details')}}: </b><span>{{@$order->contains}}-Quantity: {{$order->quantity}}</span></li>
