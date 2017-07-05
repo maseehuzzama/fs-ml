@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +19,11 @@ Route::get('/', function () {
 })->name('welcome.general');
 
 
+
+
 Route::group(['prefix' => '{locale}'], function () {
     Route::pattern('locale', 'en|ar');
+
     Route::get('/', function ($locale) {
         App::setLocale($locale);
         $slides = App\Slider::all();

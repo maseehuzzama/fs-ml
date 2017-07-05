@@ -7,6 +7,8 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+require __DIR__.'/../vendor/autoload.php';
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
