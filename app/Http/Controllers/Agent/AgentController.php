@@ -31,14 +31,14 @@ class AgentController extends Controller
         $myRegions = $agent->regions->pluck('id');
         if($agent->type == 'pick'){
             $newOrders = Order::orderBy('pick_date','asc')->whereIn('s_region',$myRegions)->whereIn('status',['confirm','returning'])->where(['is_submit'=>1,'pick_agent'=>null])->get();
-            $pendingOrders = Order::orderBy('pick_date','asc')->whereIn('s_region',$myRegions)->where('status','picked')->where('pick_agent',Auth::user()->username)->get();
-            $deliveredOrders = Order::orderBy('pick_date','asc')->whereIn('s_region',$myRegions)->whereIn('status',['delivered','return'])->where('pick_agent',Auth::user()->username)->get();
+            $pendingOrders = Order::orderBy('pick_date','asc')->where('status','picked')->where('pick_agent',Auth::user()->username)->get();
+            $deliveredOrders = Order::orderBy('pick_date','asc')->whereIn('status',['delivered','return'])->where('pick_agent',Auth::user()->username)->get();
         }
         elseif($agent->type == 'delivery') {
             $newOrders = Order::orderBy('pick_date','asc')->whereIn('r_region',$myRegions)->where('is_delivery',1)->where(['is_submit'=>1,'deliver_agent'=>null])->where('status','prepared')->where('dlv_type','!=','fed')->get();
             $comingOrders = Order::orderBy('pick_date','asc')->whereIn('r_region',$myRegions)->whereIn('status',['picked','checking','confirm','preparing'])->get();
-            $pendingOrders = Order::orderBy('pick_date','asc')->whereIn('r_region',$myRegions)->whereIn('status',['prepared','no-response','delay-weather','delay-customer','transit'])->where('dlv_type','!=','fed')->where('deliver_agent',Auth::user()->username)->where('r_city','Riyadh')->get();
-            $deliveredOrders = Order::orderBy('pick_date','asc')->whereIn('r_region',$myRegions)->whereIn('status',['delivered','return'])->where('deliver_agent',Auth::user()->username)->where('dlv_type','!=','fed')->get();
+            $pendingOrders = Order::orderBy('pick_date','asc')->whereIn('status',['prepared','no-response','delay-weather','delay-customer','transit'])->where('dlv_type','!=','fed')->where('deliver_agent',Auth::user()->username)->where('r_city','Riyadh')->get();
+            $deliveredOrders = Order::orderBy('pick_date','asc')->whereIn('status',['delivered','return'])->where('deliver_agent',Auth::user()->username)->where('dlv_type','!=','fed')->get();
         }
         return view('agent.index',compact('newOrders','pendingOrders','deliveredOrders','comingOrders'));
     }
@@ -241,10 +241,10 @@ class AgentController extends Controller
         $agent = Auth::user();
         $myRegions = $agent->regions->pluck('id');
         if(Auth::user()->type == 'pick'){
-            $pendingOrders = Order::orderBy('pick_date','asc')->whereIn('s_region',$myRegions)->whereIn('status',['confirm','returning'])->where('pick_agent',Auth::user()->username)->get();
+            $pendingOrders = Order::orderBy('pick_date','asc')->whereIn('status',['confirm','returning'])->where('pick_agent',Auth::user()->username)->get();
         }
         elseif(Auth::user()->type == 'delivery'){
-            $pendingOrders = Order::orderBy('pick_date','asc')->where('dlv_type','!=','fed')->whereIn('r_region',$myRegions)->whereIn('status',['prepared','no-response','transit','delay-weather','delay-customer'])->where('deliver_agent',Auth::user()->username)->get();
+            $pendingOrders = Order::orderBy('pick_date','asc')->where('dlv_type','!=','fed')->whereIn('status',['prepared','no-response','transit','delay-weather','delay-customer'])->where('deliver_agent',Auth::user()->username)->get();
         }
         return view('agent.pending-orders',compact('pendingOrders'));
     }
@@ -264,10 +264,10 @@ class AgentController extends Controller
         $agent = Auth::user();
         $myRegions = $agent->regions->pluck('id');
         if(Auth::user()->type == 'pick'){
-            $completedOrders = Order::orderBy('pick_date','asc')->whereIn('s_region',$myRegions)->whereIn('status',['delivered','return'])->where('pick_agent',Auth::user()->username)->get();
+            $completedOrders = Order::orderBy('pick_date','asc')->whereIn('status',['delivered','return'])->where('pick_agent',Auth::user()->username)->get();
         }
         elseif(Auth::user()->type == 'delivery'){
-            $completedOrders = Order::orderBy('pick_date','asc')->where('dlv_type','!=','fed')->whereIn('r_region',$myRegions)->whereIn('status',['delivered','return'])->where('deliver_agent',Auth::user()->username)->get();
+            $completedOrders = Order::orderBy('pick_date','asc')->where('dlv_type','!=','fed')->whereIn('status',['delivered','return'])->where('deliver_agent',Auth::user()->username)->get();
 
         }
         return view('agent.completed-orders',compact('completedOrders'));

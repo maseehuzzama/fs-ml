@@ -78,7 +78,7 @@
                                         </td>
                                         <td>{{$order->store_name}}&nbsp;</td>
                                         <td>{{$order->r_name}}&nbsp;</td>
-                                        <td>{{$order->r_city}}-{{$order->r_regions->name}}&nbsp;</td>
+                                        <td>{{$order->r_city}}-{{$order->r_neighbor}},{{$order->r_other_neighbor}}&nbsp;</td>
                                         <td>{{$order->r_phone}}&nbsp;</td>
                                         <td class="not-print">{{$order->status}}&nbsp;</td>
                                         <td class="actions not-print">
@@ -111,7 +111,7 @@
                                         </td>
                                         <td>{{$order->store_name}}&nbsp;</td>
                                         <td>{{$order->r_name}}&nbsp;</td>
-                                        <td>{{$order->r_city}}-{{$order->s_regions->name}}&nbsp;</td>
+                                        <td>{{$order->r_city}}-{{$order->r_neighbor}},{{$order->r_other_neighbor}}&nbsp;</td>
                                         <td>{{$order->r_phone}}&nbsp;</td>
                                         <td>{{$order->pick_date}}&nbsp;</td>
                                         <td>{{$order->status}}&nbsp;</td>

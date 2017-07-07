@@ -19,7 +19,7 @@
                             <td>
                                 <a href="{{route('agent.order',array($order->ref_number, App::getLocale()))}}" title=""><b>{{$order->ref_number}}</b></a>
                             </td>
-                            <td>{{$order->s_neighbor}}</td>
+                            <td>{{$order->s_neighbor}},{{$order->s_other_neighbor}}</td>
                             <td>{{$order->s_street}}</td>
                             <td>{{$order->s_city}}</td>
                             <td>{{$order->pick_date}}</td>

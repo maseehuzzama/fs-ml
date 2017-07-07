@@ -25,7 +25,7 @@
                                 <a href="{{route('admin.order',array($order->ref_number,App::getLocale()))}}" title=""><b>{{$order->ref_number}}</b></a>
                             </td>
                             <td>{{$order->contains}}&nbsp;</td>
-                            <td>{{$order->s_city}}-{{$order->s_regions->name}}&nbsp;</td>
+                            <td>{{$order->s_city}}-{{$order->s_neighbor}},{{$order->s_other_neighbor}}&nbsp;</td>
                             <td>{{$order->is_photo == true?'Photography':''}}{{$order->is_storage?'Storage,':''}}&nbsp;</td>
                             <td>{{$order->pick_date}}&nbsp;</td>
                             <td>{{$order->status}}&nbsp;</td>

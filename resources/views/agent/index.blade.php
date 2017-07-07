@@ -138,7 +138,7 @@
                         <td>
                             <a href="{{route('agent.order',array($order->ref_number, App::getLocale()))}}" title=""><b>{{$order->ref_number}}</b></a>
                         </td>
-                        <td>{{(Auth::user()->type == 'pick')?$order->s_neighbor.'-'.$order->s_city:$order->r_neighbor.' , '.$order->r_city}}&nbsp;</td>
+                        <td>{{(Auth::user()->type == 'pick')?$order->s_neighbor.'-'.$order->s_other_neighbor.'-'.$order->s_city:$order->r_neighbor.','.$order->r_other_neighbor.','.$order->r_city}}&nbsp;</td>
                         <td>{{(Auth::user()->type == 'pick')?$order->s_street:$order->r_street}}</td>
                         <td>{{@$order->pick_date}}&nbsp;</td>
                         <td>{{$order->status}}&nbsp;</td>

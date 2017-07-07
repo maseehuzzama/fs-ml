@@ -32,7 +32,7 @@
                                 <li><b>{{trans('general.shipment-details')}}: </b><span>{{@$order->contains}}-Quantity: {{$order->quantity}}</span></li>
                                 <li><b>{{trans('general.store-name')}}: </b><span>{{@$order->store_name}}</span></li>
                                 <li><b>{{trans('general.phone')}}: </b><span>{{$order->s_phone}}</span></li>
-                                <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->s_neighbor}}</span></li>
+                                <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->s_neighbor}},{{$order->s_other_neighbor}}</span></li>
                                 <li><b>{{trans('general.street')}}: </b><span>{{@$order->s_street}}</span></li>
                                 <li><b>{{trans('general.city')}}: </b><span>{{@$order->s_city}}</span></li>
                                 <li><b>{{trans('general.pick-date')}}: </b><span>{{@$order->pick_date}}</span></li>
@@ -48,7 +48,7 @@
                                 <li><b>{{trans('general.shipment-details')}}: </b><span>{{@$order->contains}}-Quantity: {{$order->quantity}}</span></li>
                                 <li><b>{{trans('general.r_name')}}: </b><span>{{@$order->r_name}}</span></li>
                                 <li><b>{{trans('general.phone')}}: </b><span>{{$order->r_phone}}</span></li>
-                                <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->r_neighbor}}</span></li>
+                                <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->r_neighbor}},{{$order->s_other_neighbor}}</span></li>
                                 <li><b>{{trans('general.street')}}: </b><span>{{@$order->r_street}}</span></li>
                                 <li><b>{{trans('general.city')}}: </b><span>{{@$order->r_city}}</span></li>
                                 <li><b>{{trans('general.cod')}}: </b><span>{!! ($order->is_cod)?'Yes, Amount <b>SAR'.$order->cod_amount.'</b>':'No'!!}</span></li>

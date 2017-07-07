@@ -22,7 +22,7 @@
                         <td>
                             <a href="#" title=""><b>{{$order->ref_number}}</b></a>
                         </td>
-                        <td>{{$order->r_neighbors->name}}</td>
+                        <td>{{$order->r_neighbor}},{{$order->r_other_neighbor}}</td>
                         <td>{{$order->r_street}}</td>
                         <td>{{Auth::user()->type == 'pick'?$order->s_city:$order->r_city}}</td>
                         <td>{{$order->pick_date}}</td>

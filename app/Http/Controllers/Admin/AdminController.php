@@ -87,6 +87,26 @@ class AdminController extends Controller
         return view('admin.order',compact('order','photoOrder','statuses'));
     }
 
+    public function assignPickAgent(Request $request,$id,$locale){
+        App::setLocale($locale);
+        $order = Order::findOrFail($id);
+        if($order->is_submit == 1){
+            $order->pick_agent = $request['pick_agent'];
+            $order->update();
+        }
+        return redirect()->back();
+    }
+
+     public function assignDeliveryAgent(Request $request,$id,$locale){
+         App::setLocale($locale);
+         $order = Order::findOrFail($id);
+         if($order->is_submit == 1){
+             $order->deliver_agent = $request['delivery_agent'];
+             $order->update();
+         }
+         return redirect()->back();
+     }
+
     public function changeStatus(Request $request, $id, $locale)
     {
         App::setLocale($locale);

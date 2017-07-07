@@ -29,14 +29,14 @@
                             <a href="{{route('agent.order',array($order->ref_number, App::getLocale()))}}" title=""><b>{{$order->ref_number}}</b></a>
                         </td>
                         <td>{{$order->store_name}}</td>
-                        <td>{{$order->s_neighbor}}</td>
+                        <td>{{Auth::user()->type == 'pick'?$order->s_neighbor.','.$order->s_other_neighbor:$order->r_neighbor.','.$order->r_other_neighbor}}</td>
                         <td>{{$order->s_street}}</td>
                         <td>{{Auth::user()->type == 'pick'?$order->s_city:$order->r_city}}</td>
                         <td>{{$order->pick_date}}</td>
                         @if(Auth::user()->type == 'delivery')
                         <td>{{$order->cod_amount}}</td>
-                        @elseif(Auth::user()->type == 'pick' and $order->payment_id == 2)
-                        <td>{{$order->cod_amount}}</td>
+                        @elseif(Auth::user()->type == 'pick')
+                        <td>{{@$order->cod_amount}}</td>
                         @endif
                         <td>{{$order->status}}</td>
                         <td class="actions">

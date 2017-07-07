@@ -14,6 +14,7 @@
                         @else
                             <a href="{{route('admin.edit-other-order',array($order->id,App::getLocale()))}}" class="btn btn-sm btn-success" style="margin: -10px 0 0 25px;">{{trans('general.edit')}}</a>
                         @endif
+                        <a href="#" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#assignAgentsModal"  style="margin: -10px 0 0 25px;" >Assign Agents</a>
                         <a href="#" class="btn btn-sm btn-danger" style="margin: -10px 0 0 25px;" onclick="goBack()">{{trans('general.back')}}</a>
                     </small>
                 </h3>
@@ -28,11 +29,13 @@
                             <li><b>{{trans('general.store-name')}}: </b><span>{{@$order->store_name}}</span></li>
                             <li><b>{{trans('general.country')}}: </b><span>{{@$order->s_country}}</span></li>
                             <li><b>{{trans('general.city')}}: </b><span>{{@$order->s_city}}</span></li>
-                            <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->s_neighbor}}</span></li>
+                            <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->s_neighbor}},{{$order->s_other_neighbor}}</span></li>
                             <li><b>{{trans('general.region')}}: </b><span>{{@$order->s_regions->name}}</span></li>
                             <li><b>{{trans('general.street')}}: </b><span>{{@$order->s_street}}</span></li>
                             <li><b>{{trans('general.pick-date')}}: </b><span>{{@$order->pick_date}}</span></li>
                             <li><b>{{trans('general.pick-time')}}: </b><span>{{@$order->pick_time}}</span></li>
+                            <li><b>Picking Agent: </b><span>{{@$order->pick_agent}}</span></li>
+
                         </ul>
                     </div>
                     <div class="col-sm-12 col-md-4">
@@ -41,9 +44,10 @@
                             <li><b>{{trans('form.name')}}: </b><span>{{@$order->r_name}}</span></li>
                             <li><b>{{trans('general.country')}}: </b><span>{{@$order->r_country}}</span></li>
                             <li><b>{{trans('general.city')}}: </b><span>{{@$order->r_city}}</span></li>
-                            <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->r_neighbor}}</span></li>
+                            <li><b>{{trans('general.neighbour')}}: </b><span>{{@$order->r_neighbor}},{{$order->r_other_neighbor}}</span></li>
                             <li><b>{{trans('general.region')}}: </b><span>{{@$order->r_regions->name}}</span></li>
                             <li><b>{{trans('general.street')}}: </b><span>{{@$order->r_street}}</span></li>
+                            <li><b>Delivery Agent: </b><span>{{@$order->deliver_agent}}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -235,6 +239,55 @@
                                     <input type="submit" value="{{trans('general.submit')}}" class="btn btn-primary">
                                 </div>
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="assignAgentsModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Assign Agents</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            <form method="post" action="{{route('admin.assign-pick-agent',[$order->id, App::getLocale()])}}">
+                                {{csrf_field()}}
+                                <div class="form-group form-inline">
+                                    <label for="number">Picking Agent</label>
+                                    <select class="form-control" name="pick_agent">
+                                        <option>--Select One--</option>
+                                    @foreach(App\Agent::where('type','pick')->get() as $agent)
+                                            <option value="{{$agent->username}}">{{$agent->name}},{{$agent->email}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" value="{{trans('general.submit')}}" class="btn btn-primary btn-sm">
+                                </div>
+                            </form>
+                            </p>
+
+                            <p>
+                            <form method="post" action="{{route('admin.assign-delivery-agent',[$order->id, App::getLocale()])}}">
+                            {{csrf_field()}}
+                                <div class="form-group form-inline">
+                                    <label for="number">Delivery Agent</label>
+                                    <select class="form-control" name="delivery_agent">
+                                        <option value="">--Select One--</option>
+                                    @foreach(App\Agent::where('type','delivery')->get() as $agent)
+                                            <option value="{{$agent->username}}">{{$agent->name}},{{$agent->email}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="submit" value="{{trans('general.submit')}}" class="btn btn-primary btn-sm">
+                                </div>
+                            </form>
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,6 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 
 /*
@@ -14,11 +16,20 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
+
 Route::get('/', function () {
     return redirect('/ar');
 })->name('welcome.general');
 
+Route::get('/logout', function () {
+    Auth::guard('agent')->logout();
+    Session::flush();
+    $rememberMeCookie = Auth::getRecallerName();
+    // Tell Laravel to forget this cookie
+    $cookie = Cookie::forget($rememberMeCookie);
 
+    return redirect()->route('welcome.general')->withCookie($cookie);
+});
 
 
 Route::group(['prefix' => '{locale}'], function () {
@@ -904,6 +915,17 @@ Route::group(['middleware' => 'roles','roles'=>['superadmin','admin','subadmin']
     Route::post('search-customers/{locale}',[
         'uses'=>'Admin\AdminController@searchCustomers',
         'as'=>'admin.search-customers',
+    ]);
+
+    /*Assign-Agent*/
+    Route::post('order/{id}/assign-pick-agent/{locale}',[
+        'uses'=>'Admin\AdminController@assignPickAgent',
+        'as'=>'admin.assign-pick-agent',
+    ]);
+
+    Route::post('order/{id}/assign-delivery-agent/{locale}',[
+        'uses'=>'Admin\AdminController@assignDeliveryAgent',
+        'as'=>'admin.assign-delivery-agent',
     ]);
 });
 /*Ajax Routes*/

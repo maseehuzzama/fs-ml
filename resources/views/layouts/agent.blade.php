@@ -65,15 +65,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ route('logout',App::getLocale()) }}"
-                           onclick="event.preventDefault();
-															 document.getElementById('logout-form').submit();">
-                           <i class="fa fa-power-off"></i> Logout
+                        <a href="{{ url('logout') }}"><i class="fa fa-power-off"></i> Logout
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout',App::getLocale()) }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
                     </li>
                 </ul>
             </li>

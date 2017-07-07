@@ -445,6 +445,7 @@
 				<div class="container text-center">
 					<div class="footer-menu">
 						<ul>
+							<li><a href="{{url('/agent/login')}}">Agent Login</a></li>
 							<li><a href="#">Privacy &amp; Cookies</a></li>
 							<li><a href="#">Terms &amp; Conditions</a></li>
 							<li><a href="#">Accessibility</a></li>
